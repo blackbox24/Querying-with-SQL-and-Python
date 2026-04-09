@@ -1,0 +1,9 @@
+[project]
+name = "query-with-sql-and-python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pysqlite3>=0.6.0",
+]

@@ -6,11 +6,7 @@ conn = sqlite3.connect(DATABASE_URL) # type: ignore
 
 cur = conn.cursor()
 
-
-track_info = cur.execute("PRAGMA table_info(InvoiceLine)");
-print("#" * 20)
-print(*track_info, sep="\n")
-print("#" * 20)
+print("#" * 20 , "# Top 10 best-selling tracks")
 
 # Top 10 best-selling tracks
 best_selling_tracks = cur.execute("" \
@@ -29,7 +25,7 @@ LIMIT 10
 print(*best_selling_tracks, sep="\n")
 
 # Which country generates the most revenue?
-print("#" * 20)
+print("#" * 20, "Which country generates the most revenue?")
 country_with_highest_revenue = cur.execute("" \
 """
 SELECT 
@@ -42,4 +38,22 @@ ORDER BY total_revenue DESC
 LIMIT 1
 """)
 print(*country_with_highest_revenue, sep="\n")
+
+# Who is the top-performing sales employee?
+print("#" * 20, "Who is the top-performing sales employee?")
+top_performing_employee = cur.execute(
+"""
+SELECT 
+    COUNT(SupportRepId) AS n_supp,
+    SupportRepId,
+    CONCAT(em.FirstName, ' ' ,em.LastName)
+FROM
+    Customer cust
+INNER JOIN Employee em ON em.EmployeeId = cust.SupportRepId
+GROUP BY SupportRepId
+ORDER BY n_supp DESC
+LIMIT 1
+"""
+)
+print(*top_performing_employee, sep="\n")
 cur.close()

@@ -27,4 +27,19 @@ ORDER BY n_distinct_names DESC
 LIMIT 10
 """)
 print(*best_selling_tracks, sep="\n")
+
+# Which country generates the most revenue?
+print("#" * 20)
+country_with_highest_revenue = cur.execute("" \
+"""
+SELECT 
+    SUM(Total) AS total_revenue,
+    COUNT(BillingCountry) As country,
+    BillingCountry
+FROM Invoice Iv
+GROUP BY BillingCountry
+ORDER BY total_revenue DESC
+LIMIT 1
+""")
+print(*country_with_highest_revenue, sep="\n")
 cur.close()

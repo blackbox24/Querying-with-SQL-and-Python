@@ -1,3 +1,5 @@
+https://roadmap.sh/projects/querying-sql-python
+
 # Querying with SQL and Python
 
 ## Write SQL queries to answer the following questions
